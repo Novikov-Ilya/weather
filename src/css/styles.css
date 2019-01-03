@@ -1,0 +1,13 @@
+.wrapper {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    background-image: url("../images/header.jpg");
+}
+
+h1 {
+    text-align: center;
+    color: #1A237E;
+}
