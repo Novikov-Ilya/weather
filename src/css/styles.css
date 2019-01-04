@@ -63,7 +63,7 @@ div.icon-and-city > div:nth-child(1) {
     }
 
     .temperature, .sunrise-sunset, .description, .min-max-t, .city-name {
-        font-size: 40pt;
+        font-size: 38pt;
         border-bottom: solid 2px #1A237E;
     }
 
@@ -74,5 +74,10 @@ div.icon-and-city > div:nth-child(1) {
     .form {
         text-align: center;
         font-size: 30pt;
+    }
+
+    div.icon-and-city > div:nth-child(1) {
+        width: auto;
+        height: auto;
     }
 }
