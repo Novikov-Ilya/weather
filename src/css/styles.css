@@ -1,13 +1,58 @@
 .wrapper {
     width: 1200px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .header {
     background-image: url("../images/header.jpg");
+    height: 200px;
+    margin-bottom: 50px;
+}
+
+.form {
+    font-size: 15pt;
+    width: 100%;
 }
 
 h1 {
     text-align: center;
     color: #1A237E;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.icon-and-city, .temp-sun-description {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+}
+
+div.icon-and-city > div:nth-child(1) {
+    flex-grow: 2;
+    display: flex;
+    align-content: center;
+}
+
+.city-name {
+    flex-grow: 10;
+}
+
+.temperature, .sunrise-sunset, .description, .min-max-t, .city-name {
+    text-align: center;
+    font-size: 25px;
+}
+
+.sunrise-sunset {
+    display: flex;
+    flex-direction: column;
+}
+
+.temperature, .sunrise-sunset, .description {
+    flex-grow: 1;
 }
