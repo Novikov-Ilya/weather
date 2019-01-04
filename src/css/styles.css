@@ -70,4 +70,9 @@ div.icon-and-city > div:nth-child(1) {
     h1 {
         font-size: 70pt;
     }
+
+    .form {
+        text-align: center;
+        font-size: 30pt;
+    }
 }
