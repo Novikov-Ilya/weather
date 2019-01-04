@@ -27,7 +27,7 @@ async function displayWeather() {
 
         const sunrise = weatherData.sys.sunrise;
         const sunset = weatherData.sys.sunset;
-        const iconURL = "http://openweathermap.org/img/w/" + weatherData.weather[0].icon + ".png";
+        const iconURL = "https://openweathermap.org/img/w/" + weatherData.weather[0].icon + ".png";
 
         /**Here is creating div which contains icon of weather and name of the city */
         const iconAndCity = document.createElement('div');
