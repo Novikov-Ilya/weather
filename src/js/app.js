@@ -55,7 +55,7 @@ async function displayWeather() {
 
         const divTemperature = document.createElement('div');
         divTemperature.className = 'temperature';
-        divTemperature.append(temperature);
+        divTemperature.append(`Temperature AVG: ${temperature}, C°`);
 
         const divsunriseSunset = document.createElement('div');
         divsunriseSunset.className = 'sunrise-sunset';

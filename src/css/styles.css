@@ -56,3 +56,18 @@ div.icon-and-city > div:nth-child(1) {
 .temperature, .sunrise-sunset, .description {
     flex-grow: 1;
 }
+
+@media (max-width:360pt) {
+    .icon-and-city, .temp-sun-description {
+        flex-direction: column;
+    }
+
+    .temperature, .sunrise-sunset, .description, .min-max-t, .city-name {
+        font-size: 40pt;
+        border-bottom: solid 2px #1A237E;
+    }
+
+    h1 {
+        font-size: 70pt;
+    }
+}
