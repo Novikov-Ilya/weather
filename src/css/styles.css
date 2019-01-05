@@ -1,5 +1,5 @@
 .wrapper {
-    width: 1200px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -68,16 +68,16 @@ div.icon-and-city > div:nth-child(1) {
     }
 
     h1 {
-        font-size: 70pt;
-    }
-
-    .form {
-        text-align: center;
-        font-size: 30pt;
+        font-size: 25pt;
     }
 
     div.icon-and-city > div:nth-child(1) {
         width: auto;
         height: auto;
+    }
+
+    .header {
+        margin-bottom: 0;
+        height: 100px;
     }
 }
