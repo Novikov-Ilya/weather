@@ -30,13 +30,15 @@ async function displayWeather() {
 
     if (checked == "forecast") {
         const weatherItems = weatherData.list.map(item => {
-            
+            createWeatherItem(item);
         })
     }
 }
 
 function convertTime (time) {
-    return new Date((time + 10800) * 1000).toISOString().slice(-13, -5);
+    if (time) {
+        return new Date((time + 10800) * 1000).toISOString().slice(-13, -5);
+    } else return "";
 }
 
 function convertTemperature (calvin) {
@@ -47,9 +49,10 @@ function createWeatherItem (data) {
     const temperature = convertTemperature(data.main.temp);
     const maxTemp = convertTemperature(data.main.temp_max);
     const minTemp = convertTemperature(data.main.temp_min);
-
+        
     const sunrise = convertTime(data.sys.sunrise);
     const sunset = convertTime (data.sys.sunset);
+    
     const iconURL = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
 
     /**Here is creating div which contains icon of weather and name of the city */
@@ -61,7 +64,7 @@ function createWeatherItem (data) {
     divIcon.appendChild(imgIcon);
     const divCity = document.createElement('div');
     divCity.className = 'city-name';
-    divCity.append(data.name);
+    divCity.append(city.options[city.selectedIndex].text);
     iconAndCity.appendChild(divIcon);
     iconAndCity.appendChild(divCity);
     /**------------------------------ */
