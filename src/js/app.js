@@ -16,71 +16,93 @@ async function getWeather () {
 }
 
 async function displayWeather() {
-    const weatherData = await getWeather();
-    if (checked == 'weather') {
-        let temperature = +weatherData.main.temp - 273.15; //set to Celsius
-        temperature = temperature.toFixed(1);
-        let maxTemp = +weatherData.main.temp_max - 273.15;
-        maxTemp = maxTemp.toFixed(1);
-        let minTemp = +weatherData.main.temp_min - 273.15;
-        minTemp = minTemp.toFixed(1);
-
-        const sunrise = weatherData.sys.sunrise;
-        const sunset = weatherData.sys.sunset;
-        const iconURL = "https://openweathermap.org/img/w/" + weatherData.weather[0].icon + ".png";
-
-        /**Here is creating div which contains icon of weather and name of the city */
-        const iconAndCity = document.createElement('div');
-        iconAndCity.className = 'icon-and-city';
-        const divIcon = document.createElement('div');
-        const imgIcon = document.createElement('img');
-        imgIcon.setAttribute('src', iconURL);
-        divIcon.appendChild(imgIcon);
-        const divCity = document.createElement('div');
-        divCity.className = 'city-name';
-        divCity.append(weatherData.name);
-        iconAndCity.appendChild(divIcon);
-        iconAndCity.appendChild(divCity);
-        /**------------------------------ */
-
-        /**Here is creating div which contains max - min temperature */
-        const minMaxT = document.createElement('div');
-        minMaxT.className = 'min-max-t';
-        minMaxT.append(`Range of temperature (min - max): ${minTemp}, C° - ${maxTemp}, C°`);
-        /**----------------------------- */
-
-        /**Here is creating div which contains avg temperature, sunrise and sunset, description */
-        const tempSunDescription = document.createElement('div');
-        tempSunDescription.className = 'temp-sun-description';
-
-        const divTemperature = document.createElement('div');
-        divTemperature.className = 'temperature';
-        divTemperature.append(`Temperature AVG: ${temperature}, C°`);
-
-        const divsunriseSunset = document.createElement('div');
-        divsunriseSunset.className = 'sunrise-sunset';
-
-        const divSunrise = document.createElement('div');
-        divSunrise.append(sunrise);
-        const divSunset = document.createElement('div');
-        divSunset.append(sunset);
-
-        divsunriseSunset.appendChild(divSunrise);
-        divsunriseSunset.appendChild(divSunset);
-
-        const divDescription = document.createElement('div');
-        divDescription.className = 'description';
-        divDescription.append(weatherData.weather[0].description);
-
-        tempSunDescription.appendChild(divTemperature);
-        tempSunDescription.appendChild(divsunriseSunset);
-        tempSunDescription.appendChild(divDescription);
-        /**----------------------------- */
-
-        content.appendChild(iconAndCity);
-        content.appendChild(minMaxT);
-        content.appendChild(tempSunDescription);
+    while (content.firstChild) {
+        content.removeChild(content.firstChild)
     }
+    const weatherData = await getWeather();
+    if (weatherData.cod == "404") {
+        content.append('Weather for the city is not found');
+        return;
+    }
+    if (checked == 'weather') {
+        createWeatherItem(weatherData);     
+    }
+
+    if (checked == "forecast") {
+        const weatherItems = weatherData.list.map(item => {
+            
+        })
+    }
+}
+
+function convertTime (time) {
+    return new Date((time + 10800) * 1000).toISOString().slice(-13, -5);
+}
+
+function convertTemperature (calvin) {
+    return (calvin - 273.15).toFixed(1);
+}
+
+function createWeatherItem (data) {
+    const temperature = convertTemperature(data.main.temp);
+    const maxTemp = convertTemperature(data.main.temp_max);
+    const minTemp = convertTemperature(data.main.temp_min);
+
+    const sunrise = convertTime(data.sys.sunrise);
+    const sunset = convertTime (data.sys.sunset);
+    const iconURL = "https://openweathermap.org/img/w/" + data.weather[0].icon + ".png";
+
+    /**Here is creating div which contains icon of weather and name of the city */
+    const iconAndCity = document.createElement('div');
+    iconAndCity.className = 'icon-and-city';
+    const divIcon = document.createElement('div');
+    const imgIcon = document.createElement('img');
+    imgIcon.setAttribute('src', iconURL);
+    divIcon.appendChild(imgIcon);
+    const divCity = document.createElement('div');
+    divCity.className = 'city-name';
+    divCity.append(data.name);
+    iconAndCity.appendChild(divIcon);
+    iconAndCity.appendChild(divCity);
+    /**------------------------------ */
+
+    /**Here is creating div which contains max - min temperature */
+    const minMaxT = document.createElement('div');
+    minMaxT.className = 'min-max-t';
+    minMaxT.append(`Range of temperature (min - max): ${minTemp}, C° - ${maxTemp}, C°`);
+    /**----------------------------- */
+
+    /**Here is creating div which contains avg temperature, sunrise and sunset, description */
+    const tempSunDescription = document.createElement('div');
+    tempSunDescription.className = 'temp-sun-description';
+
+    const divTemperature = document.createElement('div');
+    divTemperature.className = 'temperature';
+    divTemperature.append(`Temperature AVG: ${temperature}, C°`);
+
+    const divsunriseSunset = document.createElement('div');
+    divsunriseSunset.className = 'sunrise-sunset';
+
+    const divSunrise = document.createElement('div');
+    divSunrise.append(`Sunrise: ${sunrise}`);
+    const divSunset = document.createElement('div');
+    divSunset.append(`Sunset: ${sunset}`);
+
+    divsunriseSunset.appendChild(divSunrise);
+    divsunriseSunset.appendChild(divSunset);
+
+    const divDescription = document.createElement('div');
+    divDescription.className = 'description';
+    divDescription.append(`Description: ${data.weather[0].description}`);
+
+    tempSunDescription.appendChild(divTemperature);
+    tempSunDescription.appendChild(divsunriseSunset);
+    tempSunDescription.appendChild(divDescription);
+    /**----------------------------- */
+
+    content.appendChild(iconAndCity);
+    content.appendChild(minMaxT);
+    content.appendChild(tempSunDescription);
 }
 
 buttonGetWeather.addEventListener('click', displayWeather);
